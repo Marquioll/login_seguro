@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <main>
+        <h1>Login</h1>
+
+        <p th:if="${param.cadastroSucesso}" role="status">
+            Cadastro realizado. Entre com seu e-mail e senha.
+        </p>
+
+        <p th:if="${param.erro}" role="alert">
+            E-mail ou senha inválidos.
+        </p>
+
+        <p th:if="${param.logout}" role="status">
+            Você saiu do sistema.
+        </p>
+
+        <form th:action="@{/login}" method="post">
+            <div>
+                <label for="email">E-mail</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       autocomplete="username"
+                       required>
+            </div>
+
+            <div>
+                <label for="senha">Senha</label>
+                <input type="password"
+                       id="senha"
+                       name="senha"
+                       autocomplete="current-password"
+                       required>
+            </div>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p>
+            Não possui uma conta?
+            <a th:href="@{/cadastro}">Cadastrar</a>
+        </p>
+    </main>
+</body>
+</html>
