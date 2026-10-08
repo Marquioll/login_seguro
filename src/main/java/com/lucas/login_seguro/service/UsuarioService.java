@@ -10,8 +10,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.lucas.login_seguro.dto.EdicaoUsuarioDto;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.List;
 
 @Service
 @Validated
@@ -58,5 +63,49 @@ public class UsuarioService {
             throw new IllegalArgumentException(
                     "Este e-mail já está cadastrado.");
         }
+    }
+
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
+    }
+
+    public Usuario buscarPorId(String id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Usuário não encontrado."));
+    }
+
+    public void editar(String id, @Valid EdicaoUsuarioDto dados) {
+        Usuario usuario = buscarPorId(id);
+
+        String email = dados.getEmail()
+                .strip()
+                .toLowerCase(Locale.ROOT);
+
+        boolean emailEmUso = usuarioRepository.findByEmail(email)
+                .map(outroUsuario -> !outroUsuario.getId().equals(id))
+                .orElse(false);
+
+        if (emailEmUso) {
+            throw new IllegalArgumentException(
+                    "Este e-mail já está cadastrado.");
+        }
+
+        usuario.setNome(dados.getNome().strip());
+        usuario.setEmail(email);
+        usuario.setRole(dados.getRole());
+
+        try {
+            usuarioRepository.save(usuario);
+        } catch (DuplicateKeyException exception) {
+            throw new IllegalArgumentException(
+                    "Este e-mail já está cadastrado.");
+        }
+    }
+
+    public void excluir(String id) {
+        Usuario usuario = buscarPorId(id);
+        usuarioRepository.delete(usuario);
     }
 }

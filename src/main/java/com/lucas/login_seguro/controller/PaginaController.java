@@ -17,4 +17,9 @@ public class PaginaController {
 
         return "inicio";
     }
+
+    @GetMapping("/moderador/painel")
+    public String exibirPainelModerador() {
+        return "moderador/painel";
+    }
 }
