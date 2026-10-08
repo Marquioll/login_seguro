@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel do moderador</title>
-</head>
+<head th:replace="~{fragments/head :: head('Painel do moderador')}"></head>
 <body>
     <main>
         <h1>Painel do moderador</h1>
@@ -18,4 +14,8 @@
         </form>
     </main>
 </body>
+
+<header th:replace="~{fragments/header :: header}"></header>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
 </html>

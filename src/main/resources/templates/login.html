@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
+<head th:replace="~{fragments/head :: head('Login')}"></head>
 <body>
     <main>
         <h1>Login</h1>
@@ -49,4 +45,7 @@
         </p>
     </main>
 </body>
+
+<header th:replace="~{fragments/header :: header}"></header>
+
 </html>
