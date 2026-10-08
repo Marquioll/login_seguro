@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do moderador</title>
+</head>
+<body>
+    <main>
+        <h1>Painel do moderador</h1>
+
+        <p>Esta página permite acesso aos perfis MODERADOR e ADMIN.</p>
+
+        <a th:href="@{/inicio}">Voltar ao início</a>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Sair</button>
+        </form>
+    </main>
+</body>
+</html>
