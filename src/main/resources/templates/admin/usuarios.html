@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('Administração de usuários')}"></head>
+<body>
+    <main>
+        <h1>Administração de usuários</h1>
+
+        <p th:if="${param.editado}" role="status">
+            Usuário atualizado.
+        </p>
+
+        <p th:if="${param.excluido}" role="status">
+            Usuário excluído.
+        </p>
+
+        <p th:if="${#lists.isEmpty(usuarios)}">
+            Nenhum usuário cadastrado.
+        </p>
+
+        <table th:unless="${#lists.isEmpty(usuarios)}">
+            <thead>
+                <tr>
+                    <th scope="col">Ações</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Perfil</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td>
+                        <a th:href="@{/admin/usuarios/{id}/editar(id=${usuario.id})}">
+                            Editar
+                        </a>
+
+                        <form th:action="@{/admin/usuarios/{id}/excluir(id=${usuario.id})}"
+                            method="post">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.role}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            <a th:href="@{/inicio}">Voltar ao início</a>
+        </p>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Sair</button>
+        </form>
+    </main>
+</body>
+
+<header th:replace="~{fragments/header :: header}"></header>
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</html>
